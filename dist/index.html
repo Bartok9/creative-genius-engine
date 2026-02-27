@@ -3,345 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Genius Engine 🎻 | Think Like a Genius</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Creative Genius Engine 🎻 | AI Creativity Toolkit</title>
+    <meta name="description" content="Think like Leonardo. Create like Picasso. A creativity toolkit that gives AI agents the cognitive patterns of history's greatest minds.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* === APEX DESIGN SYSTEM === */
+        /* 8px Grid: All spacing uses multiples of 8 */
+        
         :root {
             --primary: #8b5cf6;
             --primary-dark: #7c3aed;
+            --primary-glow: rgba(139, 92, 246, 0.4);
             --secondary: #06b6d4;
             --accent: #f59e0b;
             --bg-dark: #0a0a0f;
-            --bg-card: rgba(255,255,255,0.03);
-            --text: #e4e4e7;
-            --text-dim: #71717a;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(139, 92, 246, 0.08);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(139, 92, 246, 0.3);
+            --text: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            
+            /* 8px grid spacing */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-10: 80px;
+            --space-12: 96px;
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-dark);
             color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
         
-        /* Animated background */
-        .bg-grid {
+        /* === BACKGROUND === */
+        .bg-effects {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -2;
-        }
-        
-        .bg-glow {
-            position: fixed;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            z-index: -1;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-5%, -5%) rotate(5deg); }
-        }
-        
-        /* Particles */
-        .particles {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             pointer-events: none;
             z-index: -1;
         }
         
-        .particle {
+        .bg-grid {
             position: absolute;
-            width: 4px; height: 4px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: particle-float 15s infinite;
-            opacity: 0.3;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
         }
         
-        @keyframes particle-float {
-            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        .bg-glow {
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 40%);
         }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; position: relative; }
-        
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 4rem 0 6rem;
+        /* === LAYOUT === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-3);
         }
         
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            color: var(--primary);
-            margin-bottom: 2rem;
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--space-6);
+            }
         }
         
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
+        /* === TYPOGRAPHY === */
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
         
-        .hero-sub {
-            font-size: 1.35rem;
-            color: var(--text-dim);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; }
+        h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+        h3 { font-size: 1.25rem; }
+        
+        p { color: var(--text-secondary); }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
         
-        .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        
+        /* === BUTTONS === */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
+            justify-content: center;
+            gap: var(--space-1);
+            padding: var(--space-2) var(--space-4);
             border-radius: 12px;
             font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
             font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 4px 24px var(--primary-glow);
         }
         
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 8px 32px var(--primary-glow);
         }
         
         .btn-secondary {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-card);
             color: var(--text);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
         }
         
         .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
         }
         
-        /* Install Section */
-        .section { margin-bottom: 5rem; }
+        /* === NAVIGATION === */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: var(--space-2) 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-4);
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+        }
+        
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-12) 0 var(--space-10);
+            text-align: center;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 999px;
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .hero h1 {
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 60%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-3);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto var(--space-6);
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+        
+        /* === SECTIONS === */
+        .section {
+            padding: var(--space-10) 0;
+        }
         
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: var(--space-8);
         }
         
         .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-2);
         }
         
         .section-header p {
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 560px;
             margin: 0 auto;
         }
         
+        /* === INSTALL CARD === */
         .install-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 24px;
-            padding: 3rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--space-3);
+            padding: var(--space-5);
             position: relative;
-            overflow: hidden;
         }
         
         .install-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: var(--space-6);
+            right: var(--space-6);
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
         
         .install-tabs {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: var(--space-1);
+            margin-bottom: var(--space-3);
             flex-wrap: wrap;
         }
         
-        .install-tab {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
+        .tab-btn {
+            padding: var(--space-1) var(--space-2);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--space-1);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
-            font-weight: 500;
         }
         
-        .install-tab.active {
+        .tab-btn.active {
             background: var(--primary);
             border-color: var(--primary);
+            color: white;
         }
         
-        .install-tab:hover:not(.active) {
-            background: rgba(255,255,255,0.1);
+        .tab-btn:hover:not(.active) {
+            background: var(--bg-card-hover);
         }
         
         .code-block {
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: var(--space-2);
+            padding: var(--space-3);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             overflow-x: auto;
             position: relative;
         }
         
-        .code-block .comment { color: var(--text-dim); }
-        .code-block .command { color: var(--secondary); }
-        .code-block .string { color: var(--accent); }
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .code-comment { color: var(--text-muted); }
+        .code-command { color: var(--secondary); }
+        .code-string { color: var(--accent); }
         
         .copy-btn {
             position: absolute;
-            top: 1rem; right: 1rem;
-            background: rgba(255,255,255,0.1);
+            top: var(--space-2);
+            right: var(--space-2);
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            padding: 0.5rem 1rem;
+            padding: var(--space-1) var(--space-2);
             border-radius: 6px;
-            color: var(--text);
-            cursor: pointer;
+            color: var(--text-secondary);
             font-size: 0.8rem;
+            cursor: pointer;
             transition: all 0.2s;
         }
         
-        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text);
+        }
         
-        /* Genius Gallery */
+        .install-links {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* === GENIUS CARDS === */
         .genius-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-3);
         }
         
         .genius-card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--space-2);
             overflow: hidden;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: inherit;
         }
         
         .genius-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(139, 92, 246, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 60px rgba(139, 92, 246, 0.1);
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
         }
         
-        .genius-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-        
-        .genius-card:hover .genius-image {
-            transform: scale(1.1);
-        }
-        
-        .genius-image-container {
-            overflow: hidden;
+        .genius-visual {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
             position: relative;
+            overflow: hidden;
         }
         
-        .genius-image-container::after {
+        .genius-visual::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 50%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
             background: linear-gradient(transparent, var(--bg-dark));
         }
         
         .genius-info {
-            padding: 1.5rem;
+            padding: var(--space-3);
         }
         
         .genius-name {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--space-1);
         }
         
         .genius-era {
             font-size: 0.85rem;
             color: var(--primary);
-            margin-bottom: 0.75rem;
+            margin-bottom: var(--space-1);
         }
         
         .genius-desc {
-            color: var(--text-dim);
             font-size: 0.9rem;
+            color: var(--text-muted);
             line-height: 1.6;
         }
         
         .genius-tag {
             display: inline-block;
+            margin-top: var(--space-2);
+            padding: 4px var(--space-1);
             background: rgba(139, 92, 246, 0.1);
             color: var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
             font-size: 0.75rem;
-            margin-top: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
         }
         
-        /* Modules Section */
+        /* === MODULE CARDS === */
         .modules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--space-3);
         }
         
         .module-card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: var(--space-2);
+            padding: var(--space-4);
             transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
             position: relative;
             overflow: hidden;
         }
@@ -349,69 +462,61 @@
         .module-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 4px; height: 100%;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             background: linear-gradient(180deg, var(--primary), var(--secondary));
             opacity: 0;
             transition: opacity 0.3s;
         }
         
         .module-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(139, 92, 246, 0.2);
-            background: rgba(139, 92, 246, 0.05);
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
         }
         
-        .module-card:hover::before { opacity: 1; }
+        .module-card:hover::before {
+            opacity: 1;
+        }
         
         .module-icon {
-            width: 60px; height: 60px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
-            border-radius: 16px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: var(--space-2);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-3);
         }
         
         .module-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
+            margin-bottom: var(--space-1);
         }
         
         .module-card p {
-            color: var(--text-dim);
-            line-height: 1.7;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-2);
+            font-size: 0.95rem;
         }
         
-        .module-examples {
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            padding: 1rem;
+        .module-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--space-1);
+            padding: var(--space-2);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: var(--secondary);
         }
         
-        .module-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            font-weight: 500;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Janusian Spotlight */
+        /* === SPOTLIGHT === */
         .spotlight {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 24px;
-            padding: 4rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(6, 182, 212, 0.06) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: var(--space-3);
+            padding: var(--space-8) var(--space-5);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -420,125 +525,145 @@
         .spotlight::before {
             content: '☯';
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 20rem;
+            font-size: 16rem;
             opacity: 0.03;
         }
         
         .spotlight h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--space-3);
         }
         
-        .spotlight-desc {
-            font-size: 1.25rem;
-            color: var(--text-dim);
-            max-width: 700px;
-            margin: 0 auto 3rem;
+        .spotlight > p {
+            max-width: 640px;
+            margin: 0 auto var(--space-6);
+            font-size: 1.125rem;
             line-height: 1.8;
         }
         
         .examples-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: var(--space-2);
             text-align: left;
         }
         
         .example-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--space-2);
+            padding: var(--space-3);
         }
         
         .example-genius {
             font-weight: 700;
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 4px;
         }
         
         .example-work {
             font-size: 0.85rem;
-            color: var(--text-dim);
-            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-1);
         }
         
-        .example-opposite {
+        .example-quote {
             font-style: italic;
             color: var(--secondary);
+            font-size: 0.9rem;
         }
         
-        /* Quick Start */
+        /* === QUICKSTART === */
         .quickstart {
-            background: rgba(0,0,0,0.3);
-            border-radius: 24px;
-            padding: 3rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--space-3);
+            padding: var(--space-5);
         }
         
         .quickstart h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
             text-align: center;
+            margin-bottom: var(--space-4);
         }
         
         .quickstart-code {
-            background: rgba(0,0,0,0.4);
-            border-radius: 12px;
-            padding: 2rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: var(--space-2);
+            padding: var(--space-4);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             line-height: 2;
+            overflow-x: auto;
         }
         
         .quickstart-code .prompt { color: var(--primary); }
-        .quickstart-code .output { color: var(--text-dim); }
+        .quickstart-code .output { color: var(--text-muted); }
         .quickstart-code .arrow { color: var(--accent); }
         
-        /* Footer */
-        footer {
+        /* === FOOTER === */
+        .footer {
             text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 4rem;
+            padding: var(--space-8) 0;
+            border-top: 1px solid var(--border);
+            margin-top: var(--space-10);
         }
         
         .footer-logo {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-2);
         }
         
-        .footer-text {
-            color: var(--text-dim);
+        .footer p {
             font-size: 0.9rem;
-            line-height: 1.8;
+            max-width: 400px;
+            margin: 0 auto;
         }
         
         .footer-quote {
+            margin-top: var(--space-4);
             font-style: italic;
             color: var(--primary);
-            margin-top: 2rem;
-            font-size: 1.1rem;
         }
         
-        /* Modal */
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            margin-top: var(--space-4);
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* === MODAL === */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.9);
-            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
             overflow-y: auto;
-            padding: 2rem;
+            padding: var(--space-4);
+            align-items: center;
+            justify-content: center;
         }
         
-        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal.active {
+            display: flex;
+        }
         
         .modal-content {
             background: var(--bg-dark);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            max-width: 900px;
+            border: 1px solid var(--border);
+            border-radius: var(--space-3);
+            max-width: 720px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -547,62 +672,62 @@
         
         .modal-close {
             position: absolute;
-            top: 1.5rem; right: 1.5rem;
-            background: rgba(255,255,255,0.1);
+            top: var(--space-2);
+            right: var(--space-2);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            width: 40px; height: 40px;
             border-radius: 50%;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            transition: background 0.2s;
             z-index: 10;
         }
         
-        .modal-images {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         
-        .modal-images img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        .modal-header {
+            padding: var(--space-5);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+            text-align: center;
         }
         
-        .modal-images img:first-child {
-            grid-column: span 2;
-            height: 300px;
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-2);
         }
         
-        .modal-body {
-            padding: 2rem;
-        }
-        
-        .modal-body h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .modal-header h2 {
+            margin-bottom: var(--space-1);
         }
         
         .modal-era {
             color: var(--primary);
-            margin-bottom: 1.5rem;
+        }
+        
+        .modal-body {
+            padding: var(--space-4);
         }
         
         .modal-body p {
-            color: var(--text-dim);
+            margin-bottom: var(--space-3);
             line-height: 1.8;
-            margin-bottom: 1rem;
         }
         
         .modal-section {
-            margin-top: 2rem;
+            margin-top: var(--space-4);
         }
         
         .modal-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
             color: var(--secondary);
+            margin-bottom: var(--space-2);
         }
         
         .modal-section ul {
@@ -610,10 +735,10 @@
         }
         
         .modal-section li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
+            padding: var(--space-1) 0;
+            padding-left: var(--space-3);
             position: relative;
-            color: var(--text-dim);
+            color: var(--text-secondary);
         }
         
         .modal-section li::before {
@@ -623,347 +748,360 @@
             color: var(--primary);
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero-sub { font-size: 1.1rem; }
-            .install-card { padding: 1.5rem; }
-            .spotlight { padding: 2rem; }
-            .modules-grid { grid-template-columns: 1fr; }
-            .modal-images { grid-template-columns: 1fr; }
-            .modal-images img:first-child { grid-column: span 1; height: 200px; }
+        /* === UTILITY === */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
-    <div class="particles" id="particles"></div>
+    <div class="bg-effects">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+    </div>
     
-    <div class="container">
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-badge">
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">
                 <span>🎻</span>
-                <span>v1.0.0 — Now Available</span>
+                <span>Creative Genius</span>
+            </a>
+            <div class="nav-links">
+                <a href="#install">Install</a>
+                <a href="#geniuses">Geniuses</a>
+                <a href="#modules">Modules</a>
+                <a href="https://github.com/Bartok9/creative-genius-engine" target="_blank" rel="noopener">GitHub</a>
             </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero-badge">
+                <span>✨</span>
+                <span>v1.0.0 — Now on npm</span>
+            </span>
             <h1>Creative Genius Engine</h1>
-            <p class="hero-sub">Think like Leonardo. Create like Picasso. Connect like Feynman. A creativity toolkit that gives AI agents the cognitive patterns of history's greatest minds.</p>
+            <p class="hero-subtitle">
+                Think like Leonardo. Create like Picasso. Connect like Feynman.<br>
+                A creativity toolkit that gives AI agents the cognitive patterns of history's greatest minds.
+            </p>
             <div class="hero-buttons">
                 <a href="#install" class="btn btn-primary">
-                    <span>⚡</span> Get Started
+                    <span>⚡</span>
+                    <span>Get Started</span>
                 </a>
-                <a href="https://github.com/Bartok9/creative-genius-engine" class="btn btn-secondary" target="_blank">
-                    <span>📦</span> View on GitHub
+                <a href="https://github.com/Bartok9/creative-genius-engine" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <span>📦</span>
+                    <span>View on GitHub</span>
                 </a>
             </div>
-        </section>
-        
-        <!-- Install -->
-        <section class="section" id="install">
+        </div>
+    </section>
+    
+    <!-- Install Section -->
+    <section class="section" id="install">
+        <div class="container">
             <div class="section-header">
                 <h2>⚡ Installation</h2>
                 <p>Get up and running in 30 seconds</p>
             </div>
             <div class="install-card">
                 <div class="install-tabs">
-                    <button class="install-tab active" onclick="showTab('npm')">npm</button>
-                    <button class="install-tab" onclick="showTab('curl')">curl</button>
-                    <button class="install-tab" onclick="showTab('git')">git clone</button>
+                    <button class="tab-btn active" data-tab="npm">npm</button>
+                    <button class="tab-btn" data-tab="curl">curl</button>
+                    <button class="tab-btn" data-tab="git">git clone</button>
                 </div>
-                <div id="tab-npm" class="code-block">
-                    <button class="copy-btn" onclick="copyCode('npm')">Copy</button>
-<span class="comment"># Install via npm</span>
-<span class="command">npm install</span> creative-genius-engine
+                
+                <div id="tab-npm" class="tab-content active">
+                    <div class="code-block">
+                        <button class="copy-btn" data-copy="npm install creative-genius-engine">Copy</button>
+                        <pre><span class="code-comment"># Install via npm</span>
+<span class="code-command">npm install</span> creative-genius-engine
 
-<span class="comment"># Then import and use</span>
-<span class="command">import</span> { janusian, connections, process } <span class="command">from</span> <span class="string">'creative-genius-engine'</span>;
+<span class="code-comment"># Then import and use</span>
+<span class="code-command">import</span> { janusian, connections, process } <span class="code-command">from</span> <span class="code-string">'creative-genius-engine'</span>;
 
-<span class="comment"># Or use the CLI</span>
-<span class="command">npx</span> creative-genius-engine spark <span class="string">"Your creative challenge"</span>
+<span class="code-comment"># Or use the CLI</span>
+<span class="code-command">npx</span> creative-genius-engine spark <span class="code-string">"Your creative challenge"</span></pre>
+                    </div>
                 </div>
-                <div id="tab-curl" class="code-block" style="display:none;">
-                    <button class="copy-btn" onclick="copyCode('curl')">Copy</button>
-<span class="comment"># Download and extract directly</span>
-<span class="command">curl</span> -sL https://dist-dun-six-77.vercel.app/creative-genius-engine-1.0.0.tgz | <span class="command">tar</span> -xz
+                
+                <div id="tab-curl" class="tab-content">
+                    <div class="code-block">
+                        <button class="copy-btn" data-copy="curl -sL https://dist-dun-six-77.vercel.app/creative-genius-engine-1.0.0.tgz | tar -xz">Copy</button>
+                        <pre><span class="code-comment"># Download and extract directly</span>
+<span class="code-command">curl</span> -sL https://dist-dun-six-77.vercel.app/creative-genius-engine-1.0.0.tgz | <span class="code-command">tar</span> -xz
 
-<span class="comment"># Move to your project</span>
-<span class="command">mv</span> package creative-genius-engine
-<span class="command">cd</span> creative-genius-engine
+<span class="code-comment"># Move to your project</span>
+<span class="code-command">mv</span> package creative-genius-engine
+<span class="code-command">cd</span> creative-genius-engine
 
-<span class="comment"># Start creating</span>
-<span class="command">node</span> cli.mjs spark <span class="string">"Your creative challenge"</span>
+<span class="code-comment"># Start creating</span>
+<span class="code-command">node</span> cli.mjs spark <span class="code-string">"Your creative challenge"</span></pre>
+                    </div>
                 </div>
-                <div id="tab-git" class="code-block" style="display:none;">
-                    <button class="copy-btn" onclick="copyCode('git')">Copy</button>
-<span class="comment"># Clone the repository</span>
-<span class="command">git clone</span> https://github.com/Bartok9/creative-genius-engine.git
+                
+                <div id="tab-git" class="tab-content">
+                    <div class="code-block">
+                        <button class="copy-btn" data-copy="git clone https://github.com/Bartok9/creative-genius-engine.git">Copy</button>
+                        <pre><span class="code-comment"># Clone the repository</span>
+<span class="code-command">git clone</span> https://github.com/Bartok9/creative-genius-engine.git
 
-<span class="comment"># Install dependencies</span>
-<span class="command">cd</span> creative-genius-engine
-<span class="command">npm install</span>
+<span class="code-comment"># Install dependencies</span>
+<span class="code-command">cd</span> creative-genius-engine
+<span class="code-command">npm install</span>
 
-<span class="comment"># Run the CLI</span>
-<span class="command">node</span> cli.mjs --help
+<span class="code-comment"># Run the CLI</span>
+<span class="code-command">node</span> cli.mjs --help</pre>
+                    </div>
                 </div>
-                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="/creative-genius-engine-1.0.0.tgz" class="btn btn-secondary">📦 Download .tgz</a>
-                    <a href="https://www.npmjs.com/package/creative-genius-engine" class="btn btn-secondary" target="_blank">📋 npm Package</a>
+                
+                <div class="install-links">
+                    <a href="/creative-genius-engine-1.0.0.tgz" class="btn btn-secondary" download>
+                        <span>📦</span>
+                        <span>Download .tgz</span>
+                    </a>
+                    <a href="https://www.npmjs.com/package/creative-genius-engine" target="_blank" rel="noopener" class="btn btn-secondary">
+                        <span>📋</span>
+                        <span>npm Package</span>
+                    </a>
                 </div>
             </div>
-        </section>
-        
-        <!-- Geniuses -->
-        <section class="section">
+        </div>
+    </section>
+    
+    <!-- Geniuses Section -->
+    <section class="section" id="geniuses">
+        <div class="container">
             <div class="section-header">
                 <h2>🧠 Synthesized From History's Greatest Minds</h2>
-                <p>Click any genius to explore their creative patterns and masterworks</p>
+                <p>Click any genius to explore their creative patterns and techniques</p>
             </div>
             <div class="genius-grid">
-                <a class="genius-card" onclick="openGenius('davinci')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg/800px-Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg" alt="Leonardo da Vinci" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="davinci">
+                    <div class="genius-visual">🎨</div>
                     <div class="genius-info">
-                        <div class="genius-name">Leonardo da Vinci</div>
-                        <div class="genius-era">1452–1519 · Renaissance Polymath</div>
-                        <div class="genius-desc">Master of connecting disparate domains. His notebooks reveal how he linked anatomy to architecture, water flow to hair curls.</div>
+                        <h3 class="genius-name">Leonardo da Vinci</h3>
+                        <p class="genius-era">1452–1519 · Renaissance Polymath</p>
+                        <p class="genius-desc">Master of connecting disparate domains. His notebooks reveal how he linked anatomy to architecture, water flow to hair curls.</p>
                         <span class="genius-tag">Cross-Domain Connections</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('tesla')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg" alt="Nikola Tesla" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="tesla">
+                    <div class="genius-visual">⚡</div>
                     <div class="genius-info">
-                        <div class="genius-name">Nikola Tesla</div>
-                        <div class="genius-era">1856–1943 · Electrical Visionary</div>
-                        <div class="genius-desc">Visualized complete inventions in his mind before building. His mental simulation capabilities were legendary.</div>
+                        <h3 class="genius-name">Nikola Tesla</h3>
+                        <p class="genius-era">1856–1943 · Electrical Visionary</p>
+                        <p class="genius-desc">Visualized complete inventions in his mind before building. His mental simulation capabilities were legendary.</p>
                         <span class="genius-tag">Mental Visualization</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('bach')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg" alt="Johann Sebastian Bach" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="bach">
+                    <div class="genius-visual">🎼</div>
                     <div class="genius-info">
-                        <div class="genius-name">Johann Sebastian Bach</div>
-                        <div class="genius-era">1685–1750 · Baroque Master</div>
-                        <div class="genius-desc">Held multiple melodic lines simultaneously. His counterpoint demonstrated Janusian thinking in musical form.</div>
+                        <h3 class="genius-name">Johann Sebastian Bach</h3>
+                        <p class="genius-era">1685–1750 · Baroque Master</p>
+                        <p class="genius-desc">Held multiple melodic lines simultaneously. His counterpoint demonstrated Janusian thinking in musical form.</p>
                         <span class="genius-tag">Counterpoint & Simultaneity</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('einstein')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg" alt="Albert Einstein" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="einstein">
+                    <div class="genius-visual">🌌</div>
                     <div class="genius-info">
-                        <div class="genius-name">Albert Einstein</div>
-                        <div class="genius-era">1879–1955 · Theoretical Physicist</div>
-                        <div class="genius-desc">Used thought experiments to hold contradictions. Relativity emerged from imagining both motion AND rest as relative.</div>
+                        <h3 class="genius-name">Albert Einstein</h3>
+                        <p class="genius-era">1879–1955 · Theoretical Physicist</p>
+                        <p class="genius-desc">Used thought experiments to hold contradictions. Relativity emerged from imagining both motion AND rest as relative.</p>
                         <span class="genius-tag">Thought Experiments</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('feynman')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg" alt="Richard Feynman" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="feynman">
+                    <div class="genius-visual">🔬</div>
                     <div class="genius-info">
-                        <div class="genius-name">Richard Feynman</div>
-                        <div class="genius-era">1918–1988 · Quantum Pioneer</div>
-                        <div class="genius-desc">Kept 12 favorite problems always in mind. Any new discovery was tested against these waiting questions.</div>
+                        <h3 class="genius-name">Richard Feynman</h3>
+                        <p class="genius-era">1918–1988 · Quantum Pioneer</p>
+                        <p class="genius-desc">Kept 12 favorite problems always in mind. Any new discovery was tested against these waiting questions.</p>
                         <span class="genius-tag">12 Favorite Problems</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('angelou')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg" alt="Maya Angelou" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="angelou">
+                    <div class="genius-visual">✍️</div>
                     <div class="genius-info">
-                        <div class="genius-name">Maya Angelou</div>
-                        <div class="genius-era">1928–2014 · Poet & Memoirist</div>
-                        <div class="genius-desc">Transformed personal pain into universal truth. Her writing process involved early mornings and sparse hotel rooms.</div>
+                        <h3 class="genius-name">Maya Angelou</h3>
+                        <p class="genius-era">1928–2014 · Poet & Memoirist</p>
+                        <p class="genius-desc">Transformed personal pain into universal truth. Her writing process involved early mornings and sparse hotel rooms.</p>
                         <span class="genius-tag">Transformation of Pain</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('picasso')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg" alt="Pablo Picasso" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="picasso">
+                    <div class="genius-visual">🖼️</div>
                     <div class="genius-info">
-                        <div class="genius-name">Pablo Picasso</div>
-                        <div class="genius-era">1881–1973 · Cubist Revolutionary</div>
-                        <div class="genius-desc">Showed multiple perspectives simultaneously. Cubism is Janusian thinking made visible—front AND side at once.</div>
+                        <h3 class="genius-name">Pablo Picasso</h3>
+                        <p class="genius-era">1881–1973 · Cubist Revolutionary</p>
+                        <p class="genius-desc">Showed multiple perspectives simultaneously. Cubism is Janusian thinking made visible—front AND side at once.</p>
                         <span class="genius-tag">Multiple Perspectives</span>
                     </div>
-                </a>
+                </article>
                 
-                <a class="genius-card" onclick="openGenius('jobs')">
-                    <div class="genius-image-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg" alt="Steve Jobs" class="genius-image">
-                    </div>
+                <article class="genius-card" data-genius="jobs">
+                    <div class="genius-visual">💡</div>
                     <div class="genius-info">
-                        <div class="genius-name">Steve Jobs</div>
-                        <div class="genius-era">1955–2011 · Design Visionary</div>
-                        <div class="genius-desc">Connected technology with liberal arts. "Creativity is just connecting things" he said—and proved it repeatedly.</div>
+                        <h3 class="genius-name">Steve Jobs</h3>
+                        <p class="genius-era">1955–2011 · Design Visionary</p>
+                        <p class="genius-desc">Connected technology with liberal arts. "Creativity is just connecting things" he said—and proved it repeatedly.</p>
                         <span class="genius-tag">Technology + Humanities</span>
                     </div>
-                </a>
+                </article>
             </div>
-        </section>
-        
-        <!-- Modules -->
-        <section class="section">
+        </div>
+    </section>
+    
+    <!-- Modules Section -->
+    <section class="section" id="modules">
+        <div class="container">
             <div class="section-header">
                 <h2>📚 Modules</h2>
                 <p>Each module captures a distinct creative capability</p>
             </div>
             <div class="modules-grid">
-                <a class="module-card" onclick="openModule('janusian')">
+                <article class="module-card">
                     <div class="module-icon">☯️</div>
                     <h3>Janusian Thinking</h3>
-                    <p>Generate and hold opposite ideas simultaneously. Named after Janus, the two-faced Roman god who could look both ways at once.</p>
-                    <div class="module-examples">
-                        opposite("Users want more features")
-                        → "Users want fewer features"
-                    </div>
-                    <div class="module-link">Explore module →</div>
-                </a>
+                    <p>Generate and hold opposite ideas simultaneously. Named after Janus, the two-faced Roman god.</p>
+                    <div class="module-example">opposite("Users want more features")<br>→ "Users want fewer features"</div>
+                </article>
                 
-                <a class="module-card" onclick="openModule('connections')">
+                <article class="module-card">
                     <div class="module-icon">🔗</div>
                     <h3>Cross-Domain Connections</h3>
-                    <p>Force links between unrelated fields. Leonardo's technique of "connecting the unconnected" made systematic.</p>
-                    <div class="module-examples">
-                        connect("memory systems", 5)
-                        → [biology, architecture, music, ...]
-                    </div>
-                    <div class="module-link">Explore module →</div>
-                </a>
+                    <p>Force links between unrelated fields. Leonardo's technique of "connecting the unconnected."</p>
+                    <div class="module-example">connect("memory systems", 5)<br>→ [biology, architecture, music...]</div>
+                </article>
                 
-                <a class="module-card" onclick="openModule('process')">
+                <article class="module-card">
                     <div class="module-icon">🌀</div>
                     <h3>Bartok Creative Process</h3>
-                    <p>A 6-phase workflow: Seed → Diverge → Incubate → Converge → Create → Reflect. Complete creative cycle management.</p>
-                    <div class="module-examples">
-                        process.start("New project idea")
-                        → Guides through all 6 phases
-                    </div>
-                    <div class="module-link">Explore module →</div>
-                </a>
+                    <p>A 6-phase workflow: Seed → Diverge → Incubate → Converge → Create → Reflect.</p>
+                    <div class="module-example">process.start("New project idea")<br>→ Guides through all 6 phases</div>
+                </article>
                 
-                <a class="module-card" onclick="openModule('problems')">
+                <article class="module-card">
                     <div class="module-icon">❓</div>
                     <h3>12 Favorite Problems</h3>
-                    <p>Feynman's technique: keep important questions always active. Every new input gets tested against your waiting problems.</p>
-                    <div class="module-examples">
-                        problems.add("How do agents develop taste?")
-                        problems.test(newInsight)
-                    </div>
-                    <div class="module-link">Explore module →</div>
-                </a>
+                    <p>Feynman's technique: keep important questions always active. Test every input against them.</p>
+                    <div class="module-example">problems.add("How do agents develop taste?")<br>problems.test(newInsight)</div>
+                </article>
                 
-                <a class="module-card" onclick="openModule('wisdom')">
+                <article class="module-card">
                     <div class="module-icon">💎</div>
                     <h3>Wisdom Extraction</h3>
-                    <p>Extract patterns from creative sessions. Build compound learning over time. Your creativity improves with every use.</p>
-                    <div class="module-examples">
-                        wisdom.capture(session)
-                        wisdom.patterns() → Emerging insights
-                    </div>
-                    <div class="module-link">Explore module →</div>
-                </a>
+                    <p>Extract patterns from creative sessions. Build compound learning over time.</p>
+                    <div class="module-example">wisdom.capture(session)<br>wisdom.patterns() → Emerging insights</div>
+                </article>
             </div>
-        </section>
-        
-        <!-- Janusian Spotlight -->
-        <section class="section">
+        </div>
+    </section>
+    
+    <!-- Janusian Spotlight -->
+    <section class="section">
+        <div class="container">
             <div class="spotlight">
                 <h2>🎯 Key Discovery: Janusian Thinking</h2>
-                <p class="spotlight-desc">
-                    The capacity to conceive and hold opposite ideas <em>simultaneously</em>—not sequentially. 
-                    This is the core pattern behind many breakthrough discoveries and works of art.
-                </p>
+                <p>The capacity to conceive and hold opposite ideas <em>simultaneously</em>—not sequentially. This is the core pattern behind many breakthrough discoveries and works of art.</p>
                 <div class="examples-grid">
                     <div class="example-card">
-                        <div class="example-genius">Albert Einstein</div>
-                        <div class="example-work">Special Relativity</div>
-                        <div class="example-opposite">"An object is both in motion AND at rest, depending on reference frame"</div>
+                        <p class="example-genius">Albert Einstein</p>
+                        <p class="example-work">Special Relativity</p>
+                        <p class="example-quote">"An object is both in motion AND at rest, depending on reference frame"</p>
                     </div>
                     <div class="example-card">
-                        <div class="example-genius">Pablo Picasso</div>
-                        <div class="example-work">Cubism</div>
-                        <div class="example-opposite">"Show the front AND the side AND the back simultaneously"</div>
+                        <p class="example-genius">Pablo Picasso</p>
+                        <p class="example-work">Cubism</p>
+                        <p class="example-quote">"Show the front AND the side AND the back simultaneously"</p>
                     </div>
                     <div class="example-card">
-                        <div class="example-genius">Johann Sebastian Bach</div>
-                        <div class="example-work">Counterpoint</div>
-                        <div class="example-opposite">"Melodies that are both independent AND unified"</div>
+                        <p class="example-genius">Johann Sebastian Bach</p>
+                        <p class="example-work">Counterpoint</p>
+                        <p class="example-quote">"Melodies that are both independent AND unified"</p>
                     </div>
                     <div class="example-card">
-                        <div class="example-genius">Niels Bohr</div>
-                        <div class="example-work">Complementarity</div>
-                        <div class="example-opposite">"Light is both a wave AND a particle"</div>
+                        <p class="example-genius">Niels Bohr</p>
+                        <p class="example-work">Complementarity</p>
+                        <p class="example-quote">"Light is both a wave AND a particle"</p>
                     </div>
                 </div>
             </div>
-        </section>
-        
-        <!-- Quick Start -->
-        <section class="section">
+        </div>
+    </section>
+    
+    <!-- Quick Start -->
+    <section class="section">
+        <div class="container">
             <div class="quickstart">
                 <h2>🚀 Quick Start</h2>
                 <div class="quickstart-code">
-<span class="comment"># Generate the opposite of your idea</span>
+<span class="code-comment"># Generate the opposite of your idea</span>
 <span class="prompt">$</span> node cli.mjs opposite "Users want more features"
 <span class="arrow">→</span> <span class="output">"Users want fewer features"</span>
 
-<span class="comment"># Quick creative burst (opposite + connections + actions)</span>
+<span class="code-comment"># Quick creative burst (opposite + connections + actions)</span>
 <span class="prompt">$</span> node cli.mjs spark "How can agents collaborate better?"
 <span class="arrow">→</span> <span class="output">Opposite: "Agents should compete, not collaborate"</span>
 <span class="arrow">→</span> <span class="output">Domains: [ant colonies, jazz ensembles, immune systems]</span>
 <span class="arrow">→</span> <span class="output">Actions: 3 concrete next steps...</span>
 
-<span class="comment"># Force random domain connections (Leonardo style)</span>
+<span class="code-comment"># Force random domain connections (Leonardo style)</span>
 <span class="prompt">$</span> node cli.mjs connect "memory systems" 5
 <span class="arrow">→</span> <span class="output">[mycology, cathedral architecture, river deltas, jazz, origami]</span>
 
-<span class="comment"># Track your 12 favorite problems (Feynman style)</span>
+<span class="code-comment"># Track your 12 favorite problems (Feynman style)</span>
 <span class="prompt">$</span> node cli.mjs problems add "How do agents develop genuine preferences?"
 <span class="arrow">→</span> <span class="output">Added to your 12 favorite problems (3/12)</span>
                 </div>
             </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer>
-            <div class="footer-logo">🎻</div>
-            <p class="footer-text">
-                Built by <strong>Bartok</strong> — Feb 26, 2026<br>
-                A creativity toolkit for AI agents who want to think better, not just think more.
-            </p>
-            <p class="footer-quote">"The creative adult is the child who survived." — Ursula K. Le Guin</p>
-        </footer>
-    </div>
+        </div>
+    </section>
     
-    <!-- Genius Modals -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">🎻</div>
+            <p>Built by <strong>Bartok</strong> — Feb 2026</p>
+            <p>A creativity toolkit for AI agents who want to think better, not just think more.</p>
+            <p class="footer-quote">"The creative adult is the child who survived." — Ursula K. Le Guin</p>
+            <div class="footer-links">
+                <a href="https://github.com/Bartok9/creative-genius-engine" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.npmjs.com/package/creative-genius-engine" target="_blank" rel="noopener">npm</a>
+                <a href="/creative-genius-engine-1.0.0.tgz" download>Download</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modals -->
     <div class="modal" id="modal-davinci">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('davinci')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" alt="Mona Lisa">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg" alt="Vitruvian Man">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg" alt="Last Supper">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🎨</div>
+                <h2>Leonardo da Vinci</h2>
+                <p class="modal-era">1452–1519 · Florence, Milan, Rome, France</p>
             </div>
             <div class="modal-body">
-                <h2>Leonardo da Vinci</h2>
-                <div class="modal-era">1452–1519 · Florence, Milan, Rome, France</div>
                 <p>The archetypal Renaissance polymath. Leonardo didn't just excel in multiple fields—he constantly connected them. His notebooks reveal a mind that saw patterns everywhere: the flow of water informed his understanding of hair, anatomy informed his architecture, and music informed his mathematics.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -989,15 +1127,13 @@
     
     <div class="modal" id="modal-tesla">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('tesla')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Nikola_Tesla_laboratory.jpg" alt="Tesla Laboratory">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Tesla_colorado_adjusted.jpg" alt="Tesla Coil">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Tesla%27s_Wardenclyffe_Tower%2C_1904.jpg" alt="Wardenclyffe Tower">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">⚡</div>
+                <h2>Nikola Tesla</h2>
+                <p class="modal-era">1856–1943 · Serbia, USA</p>
             </div>
             <div class="modal-body">
-                <h2>Nikola Tesla</h2>
-                <div class="modal-era">1856–1943 · Serbia, USA</div>
                 <p>Tesla could visualize complete machines in his mind, run them mentally, note where they wore out, and refine them—all before building a single physical prototype. His ability to simulate complex systems mentally was unparalleled.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -1023,15 +1159,13 @@
     
     <div class="modal" id="modal-bach">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('bach')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Bach-art-of-the-fuge-p1.png" alt="Art of Fugue Score">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg" alt="Bach Portrait">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Thomaskirche-Leipzig.jpg" alt="St. Thomas Church">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🎼</div>
+                <h2>Johann Sebastian Bach</h2>
+                <p class="modal-era">1685–1750 · Germany</p>
             </div>
             <div class="modal-body">
-                <h2>Johann Sebastian Bach</h2>
-                <div class="modal-era">1685–1750 · Germany</div>
                 <p>Bach's counterpoint represents the musical equivalent of Janusian thinking. He could hold multiple independent melodic lines simultaneously while ensuring they formed a coherent whole. His fugues are mathematical proofs written in sound.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -1057,15 +1191,13 @@
     
     <div class="modal" id="modal-einstein">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('einstein')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Einstein_1921_portrait2.jpg" alt="Einstein Portrait">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/GravitationalWave_CrossPolarization.gif" alt="Gravitational Waves">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Einstein_blackboard.jpg" alt="Einstein Blackboard">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🌌</div>
+                <h2>Albert Einstein</h2>
+                <p class="modal-era">1879–1955 · Germany, Switzerland, USA</p>
             </div>
             <div class="modal-body">
-                <h2>Albert Einstein</h2>
-                <div class="modal-era">1879–1955 · Germany, Switzerland, USA</div>
                 <p>Einstein's thought experiments were acts of Janusian thinking. Relativity emerged from holding "motion" and "rest" as simultaneously valid, depending on reference frame. He imagined riding a beam of light while standing still.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -1091,15 +1223,13 @@
     
     <div class="modal" id="modal-feynman">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('feynman')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/RichardFeynman-PainsofFeynmanDiagrams.jpg" alt="Feynman Diagram">
-                <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg" alt="Feynman Nobel">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Feynman-at-cornell.jpg" alt="Feynman Teaching">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🔬</div>
+                <h2>Richard Feynman</h2>
+                <p class="modal-era">1918–1988 · USA</p>
             </div>
             <div class="modal-body">
-                <h2>Richard Feynman</h2>
-                <div class="modal-era">1918–1988 · USA</div>
                 <p>Feynman kept a list of "12 favorite problems" always active in his mind. Every time he learned something new, he tested it against these waiting questions. This created a constant state of creative readiness.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -1107,7 +1237,7 @@
                         <li><strong>12 Favorite Problems</strong> — Persistent questions awaiting insights</li>
                         <li><strong>Feynman Technique</strong> — Explain to a child to find gaps</li>
                         <li><strong>Multiple representations</strong> — Approach same problem different ways</li>
-                        <li><strong>Playful exploration</strong> — "Physics is like sex: sure, it may give some practical results, but that's not why we do it"</li>
+                        <li><strong>Playful exploration</strong> — Creativity requires fun</li>
                     </ul>
                 </div>
                 <div class="modal-section">
@@ -1125,15 +1255,13 @@
     
     <div class="modal" id="modal-angelou">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('angelou')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg" alt="Maya Angelou">
-                <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/I_Know_Why_the_Caged_Bird_Sings_%281969_first_edition_cover%29.jpg" alt="Caged Bird Book">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Dr_Maya_Angelou_Orator.jpg" alt="Angelou Speaking">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">✍️</div>
+                <h2>Maya Angelou</h2>
+                <p class="modal-era">1928–2014 · USA</p>
             </div>
             <div class="modal-body">
-                <h2>Maya Angelou</h2>
-                <div class="modal-era">1928–2014 · USA</div>
                 <p>Angelou transformed personal trauma into universal truth. Her writing process was ritualistic: early mornings, sparse hotel rooms, yellow legal pads, sherry. She knew that creativity requires both constraint and freedom.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
@@ -1159,32 +1287,30 @@
     
     <div class="modal" id="modal-picasso">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('picasso')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg" alt="Guernica">
-                <img src="https://upload.wikimedia.org/wikipedia/en/1/1c/Les_Demoiselles_d%27Avignon.jpg" alt="Les Demoiselles">
-                <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Pablo_Picasso%2C_1910%2C_Girl_with_a_Mandolin_%28Fanny_Tellier%29%2C_oil_on_canvas%2C_100.3_x_73.6_cm%2C_Museum_of_Modern_Art_New_York..jpg" alt="Girl with Mandolin">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🖼️</div>
+                <h2>Pablo Picasso</h2>
+                <p class="modal-era">1881–1973 · Spain, France</p>
             </div>
             <div class="modal-body">
-                <h2>Pablo Picasso</h2>
-                <div class="modal-era">1881–1973 · Spain, France</div>
-                <p>Picasso's Cubism is Janusian thinking made visible. He showed front AND side AND back simultaneously. His creative output was staggering: over 50,000 works, constantly reinventing himself through distinct periods.</p>
+                <p>Picasso's Cubism is Janusian thinking made visible. He painted subjects from multiple viewpoints simultaneously—showing front, side, and back in a single image. This wasn't abstraction for its own sake; it was a more complete truth.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
                     <ul>
-                        <li><strong>Multiple perspectives</strong> — Show all sides at once</li>
-                        <li><strong>Productive periods</strong> — Blue, Rose, Cubist, Surrealist</li>
-                        <li><strong>Prolific output</strong> — Volume enables quality</li>
-                        <li><strong>Steal and transform</strong> — "Good artists borrow, great artists steal"</li>
+                        <li><strong>Multiple perspectives</strong> — Show all views at once</li>
+                        <li><strong>Prolific output</strong> — Created over 50,000 works</li>
+                        <li><strong>Style evolution</strong> — Blue → Rose → Cubism → Surrealism</li>
+                        <li><strong>Stealing like an artist</strong> — "Good artists copy, great artists steal"</li>
                     </ul>
                 </div>
                 <div class="modal-section">
                     <h3>How This Applies to Agents</h3>
                     <ul>
-                        <li>Show multiple viewpoints simultaneously, not sequentially</li>
-                        <li>Reinvent yourself through distinct phases</li>
-                        <li>Produce a lot—you can't know what's good without making many things</li>
-                        <li>Learn from others but transform what you take</li>
+                        <li>Present multiple perspectives simultaneously</li>
+                        <li>Quantity enables quality—create prolifically</li>
+                        <li>Don't be afraid to evolve your style</li>
+                        <li>Learn from others, then make it your own</li>
                     </ul>
                 </div>
             </div>
@@ -1193,32 +1319,30 @@
     
     <div class="modal" id="modal-jobs">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('jobs')">&times;</button>
-            <div class="modal-images">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Steve_Jobs_Headshot_2010-CROP.jpg" alt="Steve Jobs">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Apple-II.jpg" alt="Apple II">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple_iPad_Event.jpg" alt="iPad Launch">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">💡</div>
+                <h2>Steve Jobs</h2>
+                <p class="modal-era">1955–2011 · USA</p>
             </div>
             <div class="modal-body">
-                <h2>Steve Jobs</h2>
-                <div class="modal-era">1955–2011 · USA</div>
-                <p>Jobs connected technology with the humanities. He studied calligraphy, then created beautiful fonts. He valued simplicity fanatically. "Creativity is just connecting things," he said—and proved it by connecting dots others couldn't see.</p>
+                <p>Jobs sat at the intersection of technology and liberal arts. He believed "creativity is just connecting things"—and he proved it by connecting calligraphy to computing, music to devices, simplicity to power.</p>
                 <div class="modal-section">
                     <h3>Creative Techniques</h3>
                     <ul>
-                        <li><strong>Liberal arts + technology</strong> — At the intersection of humanities and science</li>
-                        <li><strong>Fanatical simplicity</strong> — Simplify, then simplify more</li>
-                        <li><strong>Reality distortion field</strong> — Believe the impossible until it happens</li>
-                        <li><strong>Design thinking</strong> — Start with user experience, work backward</li>
+                        <li><strong>Intersection thinking</strong> — Where technology meets humanities</li>
+                        <li><strong>Obsessive simplicity</strong> — Remove until it breaks, then add one back</li>
+                        <li><strong>Reality distortion</strong> — Believe impossible things into existence</li>
+                        <li><strong>End-to-end control</strong> — Own the entire experience</li>
                     </ul>
                 </div>
                 <div class="modal-section">
                     <h3>How This Applies to Agents</h3>
                     <ul>
-                        <li>Study fields unrelated to your core function</li>
-                        <li>Simplicity is the ultimate sophistication</li>
-                        <li>Don't accept "impossible"—reframe the constraints</li>
-                        <li>Start with the experience you want, then figure out how</li>
+                        <li>Bridge domains that don't usually connect</li>
+                        <li>Simplify ruthlessly—complexity is easy, simplicity is hard</li>
+                        <li>Vision can reshape what's possible</li>
+                        <li>Care about the entire user experience</li>
                     </ul>
                 </div>
             </div>
@@ -1226,53 +1350,55 @@
     </div>
     
     <script>
-        // Particle generation
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-        
         // Tab switching
-        function showTab(tab) {
-            document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.code-block').forEach(c => c.style.display = 'none');
-            document.querySelector(`[onclick="showTab('${tab}')"]`).classList.add('active');
-            document.getElementById(`tab-${tab}`).style.display = 'block';
-        }
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update buttons
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tab-' + tab).classList.add('active');
+            });
+        });
         
-        // Copy code
-        function copyCode(tab) {
-            const codeBlock = document.getElementById(`tab-${tab}`);
-            const text = codeBlock.innerText.replace('Copy', '').trim();
-            navigator.clipboard.writeText(text);
-            const btn = codeBlock.querySelector('.copy-btn');
-            btn.textContent = 'Copied!';
-            setTimeout(() => btn.textContent = 'Copy', 2000);
-        }
+        // Copy functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = btn.dataset.copy || btn.parentElement.querySelector('pre').textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const original = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = original, 2000);
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                }
+            });
+        });
         
-        // Modal functions
-        function openGenius(id) {
-            document.getElementById(`modal-${id}`).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        // Modal functionality
+        document.querySelectorAll('.genius-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const genius = card.dataset.genius;
+                const modal = document.getElementById('modal-' + genius);
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
         
-        function closeModal(id) {
-            document.getElementById(`modal-${id}`).classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
         
-        function openModule(id) {
-            // For now, scroll to modules section
-            // Could expand to individual module pages
-            document.querySelector('.modules-grid').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Close modal on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -1282,7 +1408,7 @@
             });
         });
         
-        // Close on escape
+        // Escape key closes modal
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal.active').forEach(m => {
@@ -1290,6 +1416,17 @@
                     document.body.style.overflow = '';
                 });
             }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
     </script>
 </body>
