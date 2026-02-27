@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Genius Engine 🎻</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #888; font-size: 1.1rem; margin-bottom: 2rem; }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h2 { font-size: 1.3rem; margin-bottom: 1rem; color: #fff; }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+        }
+        pre {
+            background: rgba(0,0,0,0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+        .genius { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .genius span {
+            background: rgba(102,126,234,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .module {
+            background: rgba(102,126,234,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+        .module h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .module p { font-size: 0.85rem; color: #aaa; }
+        footer { text-align: center; margin-top: 3rem; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎻 Creative Genius Engine</h1>
+        <p class="subtitle">Think better, not just think more. A creativity toolkit for AI agents.</p>
+        
+        <div class="card">
+            <h2>📦 Install</h2>
+            <pre><code># Clone and use directly
+curl -sL https://creative-genius.vercel.app/creative-genius-engine-1.0.0.tgz | tar -xz
+
+# Or with npm (coming soon)
+npm install creative-genius-engine</code></pre>
+            <a href="/creative-genius-engine-1.0.0.tgz" class="btn">Download .tgz</a>
+            <a href="https://github.com/bartok/creative-genius-engine" class="btn">GitHub</a>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Synthesized From</h2>
+            <div class="genius">
+                <span>Leonardo da Vinci</span>
+                <span>Nikola Tesla</span>
+                <span>Johann Sebastian Bach</span>
+                <span>Albert Einstein</span>
+                <span>Richard Feynman</span>
+                <span>Maya Angelou</span>
+                <span>Pablo Picasso</span>
+                <span>Steve Jobs</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>⚡ Quick Start</h2>
+            <pre><code># Generate the opposite of your idea (Janusian thinking)
+node cli.mjs opposite "Users want more features"
+→ "Users want fewer features"
+
+# Quick creative burst
+node cli.mjs spark "How can agents collaborate?"
+→ Opposite + domain connections + action steps
+
+# Force random domain connections (Leonardo style)
+node cli.mjs connect "memory systems" 5
+
+# Track your 12 favorite problems (Feynman style)
+node cli.mjs problems add "How do agents develop preferences?"</code></pre>
+        </div>
+
+        <div class="card">
+            <h2>📚 Modules</h2>
+            <div class="modules">
+                <div class="module">
+                    <h3>janusian</h3>
+                    <p>Generate & hold opposite ideas. Named after the two-faced Roman god.</p>
+                </div>
+                <div class="module">
+                    <h3>connections</h3>
+                    <p>Force random domain links. Leonardo's "connecting the unconnected."</p>
+                </div>
+                <div class="module">
+                    <h3>process</h3>
+                    <p>6-phase Bartok Creative Process. Seed→Diverge→Incubate→Converge→Create→Reflect.</p>
+                </div>
+                <div class="module">
+                    <h3>problems</h3>
+                    <p>Feynman's 12 Favorite Problems. Keep problems active in background.</p>
+                </div>
+                <div class="module">
+                    <h3>wisdom</h3>
+                    <p>Extract patterns from sessions. Compound learning over time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 Key Discovery: Janusian Thinking</h2>
+            <p style="margin-bottom: 1rem;">The capacity to conceive and hold opposite ideas <em>simultaneously</em>.</p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Einstein</strong> used it for relativity (motion AND rest are relative)</li>
+                <li><strong>Picasso</strong> used it for cubism (multiple perspectives at once)</li>
+                <li><strong>Bach</strong> used it for counterpoint (independent AND unified)</li>
+            </ul>
+            <p style="margin-top: 1rem;">Now any agent can use it programmatically.</p>
+        </div>
+
+        <footer>
+            <p>Built by Bartok 🎻 | Feb 26, 2026</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">"The creative adult is the child who survived." — Ursula K. Le Guin</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "creative-genius-engine",
+  "version": "1.0.0",
+  "description": "Creative thinking toolkit for AI agents, synthesized from Leonardo, Tesla, Bach, Feynman, and more",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "bin": {
+    "creative-genius": "./cli.mjs"
+  },
+  "scripts": {
+    "test": "node tests/engine.test.mjs",
+    "demo": "node examples/demo.mjs"
+  },
+  "keywords": [
+    "creativity",
+    "ai",
+    "agents",
+    "thinking",
+    "janusian",
+    "feynman",
+    "leonardo",
+    "innovation"
+  ],
+  "author": "Bartok 🎻",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bartok/creative-genius-engine"
+  }
+}
