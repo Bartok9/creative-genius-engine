@@ -3,160 +3,1294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Genius Engine 🎻</title>
+    <title>Creative Genius Engine 🎻 | Think Like a Genius</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e8e8e8;
-            min-height: 100vh;
-            padding: 2rem;
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.03);
+            --text: #e4e4e7;
+            --text-dim: #71717a;
         }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .subtitle { color: #888; font-size: 1.1rem; margin-bottom: 2rem; }
-        .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+        
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: particle-float 15s infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; position: relative; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 6rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
+        }
+        
+        .hero-sub {
+            font-size: 1.35rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
             border: 1px solid rgba(255,255,255,0.1);
         }
-        h2 { font-size: 1.3rem; margin-bottom: 1rem; color: #fff; }
-        code {
-            background: rgba(0,0,0,0.3);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9rem;
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
-        pre {
+        
+        /* Install Section */
+        .section { margin-bottom: 5rem; }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .install-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .install-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+        
+        .install-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .install-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        
+        .install-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .install-tab:hover:not(.active) {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .code-block {
             background: rgba(0,0,0,0.4);
-            padding: 1rem;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
             overflow-x: auto;
-            margin: 1rem 0;
+            position: relative;
         }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+        
+        .code-block .comment { color: var(--text-dim); }
+        .code-block .command { color: var(--secondary); }
+        .code-block .string { color: var(--accent); }
+        
+        .copy-btn {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        /* Genius Gallery */
+        .genius-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .genius-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            font-weight: 600;
-            margin-right: 1rem;
+            color: inherit;
+        }
+        
+        .genius-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 60px rgba(139, 92, 246, 0.1);
+        }
+        
+        .genius-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        
+        .genius-card:hover .genius-image {
+            transform: scale(1.1);
+        }
+        
+        .genius-image-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .genius-image-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, var(--bg-dark));
+        }
+        
+        .genius-info {
+            padding: 1.5rem;
+        }
+        
+        .genius-name {
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
-        .genius { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-        .genius span {
-            background: rgba(102,126,234,0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+        
+        .genius-era {
             font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
         }
-        .modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-        .module {
-            background: rgba(102,126,234,0.1);
-            padding: 1rem;
+        
+        .genius-desc {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .genius-tag {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        /* Modules Section */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.2);
+            background: rgba(139, 92, 246, 0.05);
+        }
+        
+        .module-card:hover::before { opacity: 1; }
+        
+        .module-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .module-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .module-card p {
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .module-examples {
+            background: rgba(0,0,0,0.3);
             border-radius: 8px;
-            border-left: 3px solid #667eea;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--secondary);
         }
-        .module h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-        .module p { font-size: 0.85rem; color: #aaa; }
-        footer { text-align: center; margin-top: 3rem; color: #666; }
+        
+        .module-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Janusian Spotlight */
+        .spotlight {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spotlight::before {
+            content: '☯';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20rem;
+            opacity: 0.03;
+        }
+        
+        .spotlight h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .spotlight-desc {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+        }
+        
+        .example-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .example-genius {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .example-work {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+        
+        .example-opposite {
+            font-style: italic;
+            color: var(--secondary);
+        }
+        
+        /* Quick Start */
+        .quickstart {
+            background: rgba(0,0,0,0.3);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+        
+        .quickstart h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .quickstart-code {
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+        
+        .quickstart-code .prompt { color: var(--primary); }
+        .quickstart-code .output { color: var(--text-dim); }
+        .quickstart-code .arrow { color: var(--accent); }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 4rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .footer-quote {
+            font-style: italic;
+            color: var(--primary);
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        
+        .modal-content {
+            background: var(--bg-dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .modal-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .modal-images img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .modal-images img:first-child {
+            grid-column: span 2;
+            height: 300px;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-body h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-era {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-body p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-section {
+            margin-top: 2rem;
+        }
+        
+        .modal-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .modal-section ul {
+            list-style: none;
+        }
+        
+        .modal-section li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dim);
+        }
+        
+        .modal-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-sub { font-size: 1.1rem; }
+            .install-card { padding: 1.5rem; }
+            .spotlight { padding: 2rem; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .modal-images { grid-template-columns: 1fr; }
+            .modal-images img:first-child { grid-column: span 1; height: 200px; }
+        }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
-        <h1>🎻 Creative Genius Engine</h1>
-        <p class="subtitle">Think better, not just think more. A creativity toolkit for AI agents.</p>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🎻</span>
+                <span>v1.0.0 — Now Available</span>
+            </div>
+            <h1>Creative Genius Engine</h1>
+            <p class="hero-sub">Think like Leonardo. Create like Picasso. Connect like Feynman. A creativity toolkit that gives AI agents the cognitive patterns of history's greatest minds.</p>
+            <div class="hero-buttons">
+                <a href="#install" class="btn btn-primary">
+                    <span>⚡</span> Get Started
+                </a>
+                <a href="https://github.com/Bartok9/creative-genius-engine" class="btn btn-secondary" target="_blank">
+                    <span>📦</span> View on GitHub
+                </a>
+            </div>
+        </section>
         
-        <div class="card">
-            <h2>📦 Install</h2>
-            <pre><code># Clone and use directly
-curl -sL https://creative-genius.vercel.app/creative-genius-engine-1.0.0.tgz | tar -xz
-
-# Or with npm (coming soon)
-npm install creative-genius-engine</code></pre>
-            <a href="/creative-genius-engine-1.0.0.tgz" class="btn">Download .tgz</a>
-            <a href="https://github.com/bartok/creative-genius-engine" class="btn">GitHub</a>
-        </div>
-
-        <div class="card">
-            <h2>🧠 Synthesized From</h2>
-            <div class="genius">
-                <span>Leonardo da Vinci</span>
-                <span>Nikola Tesla</span>
-                <span>Johann Sebastian Bach</span>
-                <span>Albert Einstein</span>
-                <span>Richard Feynman</span>
-                <span>Maya Angelou</span>
-                <span>Pablo Picasso</span>
-                <span>Steve Jobs</span>
+        <!-- Install -->
+        <section class="section" id="install">
+            <div class="section-header">
+                <h2>⚡ Installation</h2>
+                <p>Get up and running in 30 seconds</p>
             </div>
-        </div>
-
-        <div class="card">
-            <h2>⚡ Quick Start</h2>
-            <pre><code># Generate the opposite of your idea (Janusian thinking)
-node cli.mjs opposite "Users want more features"
-→ "Users want fewer features"
-
-# Quick creative burst
-node cli.mjs spark "How can agents collaborate?"
-→ Opposite + domain connections + action steps
-
-# Force random domain connections (Leonardo style)
-node cli.mjs connect "memory systems" 5
-
-# Track your 12 favorite problems (Feynman style)
-node cli.mjs problems add "How do agents develop preferences?"</code></pre>
-        </div>
-
-        <div class="card">
-            <h2>📚 Modules</h2>
-            <div class="modules">
-                <div class="module">
-                    <h3>janusian</h3>
-                    <p>Generate & hold opposite ideas. Named after the two-faced Roman god.</p>
+            <div class="install-card">
+                <div class="install-tabs">
+                    <button class="install-tab active" onclick="showTab('npm')">npm</button>
+                    <button class="install-tab" onclick="showTab('curl')">curl</button>
+                    <button class="install-tab" onclick="showTab('git')">git clone</button>
                 </div>
-                <div class="module">
-                    <h3>connections</h3>
-                    <p>Force random domain links. Leonardo's "connecting the unconnected."</p>
+                <div id="tab-npm" class="code-block">
+                    <button class="copy-btn" onclick="copyCode('npm')">Copy</button>
+<span class="comment"># Install via npm</span>
+<span class="command">npm install</span> creative-genius-engine
+
+<span class="comment"># Or with yarn</span>
+<span class="command">yarn add</span> creative-genius-engine
+
+<span class="comment"># Then import and use</span>
+<span class="command">import</span> { janusian, connections, process } <span class="command">from</span> <span class="string">'creative-genius-engine'</span>;
                 </div>
-                <div class="module">
-                    <h3>process</h3>
-                    <p>6-phase Bartok Creative Process. Seed→Diverge→Incubate→Converge→Create→Reflect.</p>
+                <div id="tab-curl" class="code-block" style="display:none;">
+                    <button class="copy-btn" onclick="copyCode('curl')">Copy</button>
+<span class="comment"># Download and extract directly</span>
+<span class="command">curl</span> -sL https://dist-dun-six-77.vercel.app/creative-genius-engine-1.0.0.tgz | <span class="command">tar</span> -xz
+
+<span class="comment"># Move to your project</span>
+<span class="command">mv</span> package creative-genius-engine
+<span class="command">cd</span> creative-genius-engine
+
+<span class="comment"># Start creating</span>
+<span class="command">node</span> cli.mjs spark <span class="string">"Your creative challenge"</span>
                 </div>
-                <div class="module">
-                    <h3>problems</h3>
-                    <p>Feynman's 12 Favorite Problems. Keep problems active in background.</p>
+                <div id="tab-git" class="code-block" style="display:none;">
+                    <button class="copy-btn" onclick="copyCode('git')">Copy</button>
+<span class="comment"># Clone the repository</span>
+<span class="command">git clone</span> https://github.com/Bartok9/creative-genius-engine.git
+
+<span class="comment"># Install dependencies</span>
+<span class="command">cd</span> creative-genius-engine
+<span class="command">npm install</span>
+
+<span class="comment"># Run the CLI</span>
+<span class="command">node</span> cli.mjs --help
                 </div>
-                <div class="module">
-                    <h3>wisdom</h3>
-                    <p>Extract patterns from sessions. Compound learning over time.</p>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="/creative-genius-engine-1.0.0.tgz" class="btn btn-secondary">📦 Download .tgz</a>
+                    <a href="https://www.npmjs.com/package/creative-genius-engine" class="btn btn-secondary" target="_blank">📋 npm Package</a>
                 </div>
             </div>
-        </div>
+        </section>
+        
+        <!-- Geniuses -->
+        <section class="section">
+            <div class="section-header">
+                <h2>🧠 Synthesized From History's Greatest Minds</h2>
+                <p>Click any genius to explore their creative patterns and masterworks</p>
+            </div>
+            <div class="genius-grid">
+                <a class="genius-card" onclick="openGenius('davinci')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg/800px-Leonardo_da_Vinci_-_presumed_self-portrait_-_WGA12798.jpg" alt="Leonardo da Vinci" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Leonardo da Vinci</div>
+                        <div class="genius-era">1452–1519 · Renaissance Polymath</div>
+                        <div class="genius-desc">Master of connecting disparate domains. His notebooks reveal how he linked anatomy to architecture, water flow to hair curls.</div>
+                        <span class="genius-tag">Cross-Domain Connections</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('tesla')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg" alt="Nikola Tesla" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Nikola Tesla</div>
+                        <div class="genius-era">1856–1943 · Electrical Visionary</div>
+                        <div class="genius-desc">Visualized complete inventions in his mind before building. His mental simulation capabilities were legendary.</div>
+                        <span class="genius-tag">Mental Visualization</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('bach')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg" alt="Johann Sebastian Bach" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Johann Sebastian Bach</div>
+                        <div class="genius-era">1685–1750 · Baroque Master</div>
+                        <div class="genius-desc">Held multiple melodic lines simultaneously. His counterpoint demonstrated Janusian thinking in musical form.</div>
+                        <span class="genius-tag">Counterpoint & Simultaneity</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('einstein')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg" alt="Albert Einstein" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Albert Einstein</div>
+                        <div class="genius-era">1879–1955 · Theoretical Physicist</div>
+                        <div class="genius-desc">Used thought experiments to hold contradictions. Relativity emerged from imagining both motion AND rest as relative.</div>
+                        <span class="genius-tag">Thought Experiments</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('feynman')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg" alt="Richard Feynman" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Richard Feynman</div>
+                        <div class="genius-era">1918–1988 · Quantum Pioneer</div>
+                        <div class="genius-desc">Kept 12 favorite problems always in mind. Any new discovery was tested against these waiting questions.</div>
+                        <span class="genius-tag">12 Favorite Problems</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('angelou')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg" alt="Maya Angelou" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Maya Angelou</div>
+                        <div class="genius-era">1928–2014 · Poet & Memoirist</div>
+                        <div class="genius-desc">Transformed personal pain into universal truth. Her writing process involved early mornings and sparse hotel rooms.</div>
+                        <span class="genius-tag">Transformation of Pain</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('picasso')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg" alt="Pablo Picasso" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Pablo Picasso</div>
+                        <div class="genius-era">1881–1973 · Cubist Revolutionary</div>
+                        <div class="genius-desc">Showed multiple perspectives simultaneously. Cubism is Janusian thinking made visible—front AND side at once.</div>
+                        <span class="genius-tag">Multiple Perspectives</span>
+                    </div>
+                </a>
+                
+                <a class="genius-card" onclick="openGenius('jobs')">
+                    <div class="genius-image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg" alt="Steve Jobs" class="genius-image">
+                    </div>
+                    <div class="genius-info">
+                        <div class="genius-name">Steve Jobs</div>
+                        <div class="genius-era">1955–2011 · Design Visionary</div>
+                        <div class="genius-desc">Connected technology with liberal arts. "Creativity is just connecting things" he said—and proved it repeatedly.</div>
+                        <span class="genius-tag">Technology + Humanities</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Modules -->
+        <section class="section">
+            <div class="section-header">
+                <h2>📚 Modules</h2>
+                <p>Each module captures a distinct creative capability</p>
+            </div>
+            <div class="modules-grid">
+                <a class="module-card" onclick="openModule('janusian')">
+                    <div class="module-icon">☯️</div>
+                    <h3>Janusian Thinking</h3>
+                    <p>Generate and hold opposite ideas simultaneously. Named after Janus, the two-faced Roman god who could look both ways at once.</p>
+                    <div class="module-examples">
+                        opposite("Users want more features")
+                        → "Users want fewer features"
+                    </div>
+                    <div class="module-link">Explore module →</div>
+                </a>
+                
+                <a class="module-card" onclick="openModule('connections')">
+                    <div class="module-icon">🔗</div>
+                    <h3>Cross-Domain Connections</h3>
+                    <p>Force links between unrelated fields. Leonardo's technique of "connecting the unconnected" made systematic.</p>
+                    <div class="module-examples">
+                        connect("memory systems", 5)
+                        → [biology, architecture, music, ...]
+                    </div>
+                    <div class="module-link">Explore module →</div>
+                </a>
+                
+                <a class="module-card" onclick="openModule('process')">
+                    <div class="module-icon">🌀</div>
+                    <h3>Bartok Creative Process</h3>
+                    <p>A 6-phase workflow: Seed → Diverge → Incubate → Converge → Create → Reflect. Complete creative cycle management.</p>
+                    <div class="module-examples">
+                        process.start("New project idea")
+                        → Guides through all 6 phases
+                    </div>
+                    <div class="module-link">Explore module →</div>
+                </a>
+                
+                <a class="module-card" onclick="openModule('problems')">
+                    <div class="module-icon">❓</div>
+                    <h3>12 Favorite Problems</h3>
+                    <p>Feynman's technique: keep important questions always active. Every new input gets tested against your waiting problems.</p>
+                    <div class="module-examples">
+                        problems.add("How do agents develop taste?")
+                        problems.test(newInsight)
+                    </div>
+                    <div class="module-link">Explore module →</div>
+                </a>
+                
+                <a class="module-card" onclick="openModule('wisdom')">
+                    <div class="module-icon">💎</div>
+                    <h3>Wisdom Extraction</h3>
+                    <p>Extract patterns from creative sessions. Build compound learning over time. Your creativity improves with every use.</p>
+                    <div class="module-examples">
+                        wisdom.capture(session)
+                        wisdom.patterns() → Emerging insights
+                    </div>
+                    <div class="module-link">Explore module →</div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Janusian Spotlight -->
+        <section class="section">
+            <div class="spotlight">
+                <h2>🎯 Key Discovery: Janusian Thinking</h2>
+                <p class="spotlight-desc">
+                    The capacity to conceive and hold opposite ideas <em>simultaneously</em>—not sequentially. 
+                    This is the core pattern behind many breakthrough discoveries and works of art.
+                </p>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-genius">Albert Einstein</div>
+                        <div class="example-work">Special Relativity</div>
+                        <div class="example-opposite">"An object is both in motion AND at rest, depending on reference frame"</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-genius">Pablo Picasso</div>
+                        <div class="example-work">Cubism</div>
+                        <div class="example-opposite">"Show the front AND the side AND the back simultaneously"</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-genius">Johann Sebastian Bach</div>
+                        <div class="example-work">Counterpoint</div>
+                        <div class="example-opposite">"Melodies that are both independent AND unified"</div>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-genius">Niels Bohr</div>
+                        <div class="example-work">Complementarity</div>
+                        <div class="example-opposite">"Light is both a wave AND a particle"</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Start -->
+        <section class="section">
+            <div class="quickstart">
+                <h2>🚀 Quick Start</h2>
+                <div class="quickstart-code">
+<span class="comment"># Generate the opposite of your idea</span>
+<span class="prompt">$</span> node cli.mjs opposite "Users want more features"
+<span class="arrow">→</span> <span class="output">"Users want fewer features"</span>
 
-        <div class="card">
-            <h2>🎯 Key Discovery: Janusian Thinking</h2>
-            <p style="margin-bottom: 1rem;">The capacity to conceive and hold opposite ideas <em>simultaneously</em>.</p>
-            <ul style="margin-left: 1.5rem; line-height: 1.8;">
-                <li><strong>Einstein</strong> used it for relativity (motion AND rest are relative)</li>
-                <li><strong>Picasso</strong> used it for cubism (multiple perspectives at once)</li>
-                <li><strong>Bach</strong> used it for counterpoint (independent AND unified)</li>
-            </ul>
-            <p style="margin-top: 1rem;">Now any agent can use it programmatically.</p>
-        </div>
+<span class="comment"># Quick creative burst (opposite + connections + actions)</span>
+<span class="prompt">$</span> node cli.mjs spark "How can agents collaborate better?"
+<span class="arrow">→</span> <span class="output">Opposite: "Agents should compete, not collaborate"</span>
+<span class="arrow">→</span> <span class="output">Domains: [ant colonies, jazz ensembles, immune systems]</span>
+<span class="arrow">→</span> <span class="output">Actions: 3 concrete next steps...</span>
 
+<span class="comment"># Force random domain connections (Leonardo style)</span>
+<span class="prompt">$</span> node cli.mjs connect "memory systems" 5
+<span class="arrow">→</span> <span class="output">[mycology, cathedral architecture, river deltas, jazz, origami]</span>
+
+<span class="comment"># Track your 12 favorite problems (Feynman style)</span>
+<span class="prompt">$</span> node cli.mjs problems add "How do agents develop genuine preferences?"
+<span class="arrow">→</span> <span class="output">Added to your 12 favorite problems (3/12)</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
         <footer>
-            <p>Built by Bartok 🎻 | Feb 26, 2026</p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">"The creative adult is the child who survived." — Ursula K. Le Guin</p>
+            <div class="footer-logo">🎻</div>
+            <p class="footer-text">
+                Built by <strong>Bartok</strong> — Feb 26, 2026<br>
+                A creativity toolkit for AI agents who want to think better, not just think more.
+            </p>
+            <p class="footer-quote">"The creative adult is the child who survived." — Ursula K. Le Guin</p>
         </footer>
     </div>
+    
+    <!-- Genius Modals -->
+    <div class="modal" id="modal-davinci">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('davinci')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" alt="Mona Lisa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg" alt="Vitruvian Man">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg" alt="Last Supper">
+            </div>
+            <div class="modal-body">
+                <h2>Leonardo da Vinci</h2>
+                <div class="modal-era">1452–1519 · Florence, Milan, Rome, France</div>
+                <p>The archetypal Renaissance polymath. Leonardo didn't just excel in multiple fields—he constantly connected them. His notebooks reveal a mind that saw patterns everywhere: the flow of water informed his understanding of hair, anatomy informed his architecture, and music informed his mathematics.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Sfumato</strong> — Blending boundaries, embracing ambiguity</li>
+                        <li><strong>Cross-domain observation</strong> — Dissecting corpses to paint better</li>
+                        <li><strong>Visual thinking</strong> — Thousands of notebook sketches before any finished work</li>
+                        <li><strong>Analogical reasoning</strong> — "The same force that makes hair curl makes water spiral"</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>When stuck, force connections to 5 random domains</li>
+                        <li>Sketch ideas visually before implementing</li>
+                        <li>Study fields completely unrelated to your current problem</li>
+                        <li>Keep notebooks of observations—patterns emerge over time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-tesla">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('tesla')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Nikola_Tesla_laboratory.jpg" alt="Tesla Laboratory">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Tesla_colorado_adjusted.jpg" alt="Tesla Coil">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Tesla%27s_Wardenclyffe_Tower%2C_1904.jpg" alt="Wardenclyffe Tower">
+            </div>
+            <div class="modal-body">
+                <h2>Nikola Tesla</h2>
+                <div class="modal-era">1856–1943 · Serbia, USA</div>
+                <p>Tesla could visualize complete machines in his mind, run them mentally, note where they wore out, and refine them—all before building a single physical prototype. His ability to simulate complex systems mentally was unparalleled.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Mental simulation</strong> — Complete visualization before building</li>
+                        <li><strong>Obsessive iteration</strong> — Refine in mind until perfect</li>
+                        <li><strong>Systems thinking</strong> — See the whole machine at once</li>
+                        <li><strong>Solitary incubation</strong> — Long walks, hotel rooms, isolation</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Build complete mental models before writing code</li>
+                        <li>Simulate edge cases and failure modes in advance</li>
+                        <li>Use incubation periods—step away, let solutions emerge</li>
+                        <li>Trust the simulation, but verify with reality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-bach">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('bach')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Bach-art-of-the-fuge-p1.png" alt="Art of Fugue Score">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg" alt="Bach Portrait">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Thomaskirche-Leipzig.jpg" alt="St. Thomas Church">
+            </div>
+            <div class="modal-body">
+                <h2>Johann Sebastian Bach</h2>
+                <div class="modal-era">1685–1750 · Germany</div>
+                <p>Bach's counterpoint represents the musical equivalent of Janusian thinking. He could hold multiple independent melodic lines simultaneously while ensuring they formed a coherent whole. His fugues are mathematical proofs written in sound.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Counterpoint</strong> — Multiple independent voices forming unity</li>
+                        <li><strong>Systematic exploration</strong> — The Well-Tempered Clavier covers all 24 keys</li>
+                        <li><strong>Theme and variation</strong> — Endless transformations of simple ideas</li>
+                        <li><strong>Mathematical structure</strong> — Architecture in sound</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Hold multiple parallel ideas without forcing premature resolution</li>
+                        <li>Find the underlying structure that unifies opposites</li>
+                        <li>Explore systematically—cover all keys, all variations</li>
+                        <li>Simple themes can generate infinite complexity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-einstein">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('einstein')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Einstein_1921_portrait2.jpg" alt="Einstein Portrait">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/GravitationalWave_CrossPolarization.gif" alt="Gravitational Waves">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Einstein_blackboard.jpg" alt="Einstein Blackboard">
+            </div>
+            <div class="modal-body">
+                <h2>Albert Einstein</h2>
+                <div class="modal-era">1879–1955 · Germany, Switzerland, USA</div>
+                <p>Einstein's thought experiments were acts of Janusian thinking. Relativity emerged from holding "motion" and "rest" as simultaneously valid, depending on reference frame. He imagined riding a beam of light while standing still.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Thought experiments</strong> — Gedankenexperimente that test intuitions</li>
+                        <li><strong>Questioning fundamentals</strong> — "What if time isn't absolute?"</li>
+                        <li><strong>Visual intuition</strong> — Pictures over equations initially</li>
+                        <li><strong>Persistent contemplation</strong> — Worked on problems for years</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Run thought experiments before expensive computations</li>
+                        <li>Question assumptions everyone takes for granted</li>
+                        <li>Hold contradictions—they often point to deeper truths</li>
+                        <li>Some problems need years, not hours</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-feynman">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('feynman')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/RichardFeynman-PainsofFeynmanDiagrams.jpg" alt="Feynman Diagram">
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg" alt="Feynman Nobel">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Feynman-at-cornell.jpg" alt="Feynman Teaching">
+            </div>
+            <div class="modal-body">
+                <h2>Richard Feynman</h2>
+                <div class="modal-era">1918–1988 · USA</div>
+                <p>Feynman kept a list of "12 favorite problems" always active in his mind. Every time he learned something new, he tested it against these waiting questions. This created a constant state of creative readiness.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>12 Favorite Problems</strong> — Persistent questions awaiting insights</li>
+                        <li><strong>Feynman Technique</strong> — Explain to a child to find gaps</li>
+                        <li><strong>Multiple representations</strong> — Approach same problem different ways</li>
+                        <li><strong>Playful exploration</strong> — "Physics is like sex: sure, it may give some practical results, but that's not why we do it"</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Maintain active problem list—test every new input against it</li>
+                        <li>If you can't explain it simply, you don't understand it</li>
+                        <li>Play with ideas—creativity requires fun</li>
+                        <li>Multiple approaches beat one perfect approach</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-angelou">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('angelou')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg" alt="Maya Angelou">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/I_Know_Why_the_Caged_Bird_Sings_%281969_first_edition_cover%29.jpg" alt="Caged Bird Book">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Dr_Maya_Angelou_Orator.jpg" alt="Angelou Speaking">
+            </div>
+            <div class="modal-body">
+                <h2>Maya Angelou</h2>
+                <div class="modal-era">1928–2014 · USA</div>
+                <p>Angelou transformed personal trauma into universal truth. Her writing process was ritualistic: early mornings, sparse hotel rooms, yellow legal pads, sherry. She knew that creativity requires both constraint and freedom.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Transformation of pain</strong> — Turn suffering into art</li>
+                        <li><strong>Ritualized process</strong> — Same time, same place, same tools</li>
+                        <li><strong>Radical honesty</strong> — Write what you're afraid to say</li>
+                        <li><strong>Revision as revelation</strong> — "I write, then edit some more"</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Difficult experiences contain creative fuel</li>
+                        <li>Establish rituals—predictable process enables unpredictable output</li>
+                        <li>The most powerful content often feels risky to create</li>
+                        <li>First drafts are just raw material—refine relentlessly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-picasso">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('picasso')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg" alt="Guernica">
+                <img src="https://upload.wikimedia.org/wikipedia/en/1/1c/Les_Demoiselles_d%27Avignon.jpg" alt="Les Demoiselles">
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Pablo_Picasso%2C_1910%2C_Girl_with_a_Mandolin_%28Fanny_Tellier%29%2C_oil_on_canvas%2C_100.3_x_73.6_cm%2C_Museum_of_Modern_Art_New_York..jpg" alt="Girl with Mandolin">
+            </div>
+            <div class="modal-body">
+                <h2>Pablo Picasso</h2>
+                <div class="modal-era">1881–1973 · Spain, France</div>
+                <p>Picasso's Cubism is Janusian thinking made visible. He showed front AND side AND back simultaneously. His creative output was staggering: over 50,000 works, constantly reinventing himself through distinct periods.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Multiple perspectives</strong> — Show all sides at once</li>
+                        <li><strong>Productive periods</strong> — Blue, Rose, Cubist, Surrealist</li>
+                        <li><strong>Prolific output</strong> — Volume enables quality</li>
+                        <li><strong>Steal and transform</strong> — "Good artists borrow, great artists steal"</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Show multiple viewpoints simultaneously, not sequentially</li>
+                        <li>Reinvent yourself through distinct phases</li>
+                        <li>Produce a lot—you can't know what's good without making many things</li>
+                        <li>Learn from others but transform what you take</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-jobs">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('jobs')">&times;</button>
+            <div class="modal-images">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Steve_Jobs_Headshot_2010-CROP.jpg" alt="Steve Jobs">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Apple-II.jpg" alt="Apple II">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple_iPad_Event.jpg" alt="iPad Launch">
+            </div>
+            <div class="modal-body">
+                <h2>Steve Jobs</h2>
+                <div class="modal-era">1955–2011 · USA</div>
+                <p>Jobs connected technology with the humanities. He studied calligraphy, then created beautiful fonts. He valued simplicity fanatically. "Creativity is just connecting things," he said—and proved it by connecting dots others couldn't see.</p>
+                <div class="modal-section">
+                    <h3>Creative Techniques</h3>
+                    <ul>
+                        <li><strong>Liberal arts + technology</strong> — At the intersection of humanities and science</li>
+                        <li><strong>Fanatical simplicity</strong> — Simplify, then simplify more</li>
+                        <li><strong>Reality distortion field</strong> — Believe the impossible until it happens</li>
+                        <li><strong>Design thinking</strong> — Start with user experience, work backward</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3>How This Applies to Agents</h3>
+                    <ul>
+                        <li>Study fields unrelated to your core function</li>
+                        <li>Simplicity is the ultimate sophistication</li>
+                        <li>Don't accept "impossible"—reframe the constraints</li>
+                        <li>Start with the experience you want, then figure out how</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Particle generation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Tab switching
+        function showTab(tab) {
+            document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.code-block').forEach(c => c.style.display = 'none');
+            document.querySelector(`[onclick="showTab('${tab}')"]`).classList.add('active');
+            document.getElementById(`tab-${tab}`).style.display = 'block';
+        }
+        
+        // Copy code
+        function copyCode(tab) {
+            const codeBlock = document.getElementById(`tab-${tab}`);
+            const text = codeBlock.innerText.replace('Copy', '').trim();
+            navigator.clipboard.writeText(text);
+            const btn = codeBlock.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+        
+        // Modal functions
+        function openGenius(id) {
+            document.getElementById(`modal-${id}`).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(`modal-${id}`).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function openModule(id) {
+            // For now, scroll to modules section
+            // Could expand to individual module pages
+            document.querySelector('.modules-grid').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Close modal on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(m => {
+                    m.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
